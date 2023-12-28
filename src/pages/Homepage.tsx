@@ -29,7 +29,7 @@ export const Homepage = (props: Props) => {
 			<div className="row">
 				{products.map(product => (
 					<div className="col-lg-3 col-md-6 col-12 mb-5">
-						<ProductCard onDelete={onProductDelete} product={product} />
+						<ProductCard key={product.id} onDelete={onProductDelete} product={product} />
 					</div>
 				))}
 			</div>
