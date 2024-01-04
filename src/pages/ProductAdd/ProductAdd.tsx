@@ -1,8 +1,9 @@
-import { Formik , Form, Field, ErrorMessage} from 'formik'
+import { Formik , Form} from 'formik'
 import React from 'react'
 import * as Yup from 'yup';
 import { passwordRule } from '../../utils/validation/customValidationRules';
 import FormikInput from '../../components/FormikInput/FormikInput';
+import ColorForm from '../../components/ColorForm/ColorForm';
 
 type Props = {}
 
@@ -47,51 +48,7 @@ const validationSchema = Yup.object({
                 <FormikInput name='description' label='Description'/>
                 <FormikInput name='price' label='Price' type='number'/>
                 <FormikInput name='stock' label='In stock' type='number'/>
-
-                {/* make component */}
-                <Field as="select" className="form-select" name="colorId">
-                    <option value={0}>Color Picker</option>
-                    <option value={1}>Red</option>
-                    <option value={2}>Black</option>
-                    <option value={3}>White</option>
-                </Field>
-                <ErrorMessage name='colorId'>
-                    {(message) => { return <p className='text-danger'>{message}</p> }}
-                </ErrorMessage>
-
-
-                {/* <div className="mb-3">
-					<label className="form-label">Title</label>
-					<Field type="text" name='title' className="form-control" />
-                    <ErrorMessage name='title'>
-                        {(message)=> <p className='text-danger'>{message}</p> }
-                    </ErrorMessage>
-				</div> */}
-
-
-				{/* <div className="mb-3">
-					<label className="form-label">Product Description</label>
-					<Field type="text" name='description' className="form-control" />
-                    <ErrorMessage name='description'>
-                        {(message)=> <p className='text-danger'>{message}</p> }
-                    </ErrorMessage>
-				</div>
-
-				<div className="mb-3">
-					<label className="form-label">Price</label>
-					<Field type="text" name='price' className="form-control" />
-                    <ErrorMessage name='price'>
-                        {(message)=> <p className='text-danger'>{message}</p> }
-                    </ErrorMessage>
-				</div>
-
-				<div className="mb-3">
-					<label className="form-label">In stock</label>
-					<Field type="text" name='stock' className="form-control" />
-                    <ErrorMessage name='stock'>
-                        {(message)=> <p className='text-danger'>{message}</p> }
-                    </ErrorMessage>
-				</div> */}
+                <ColorForm colors={[{ id: 1, name: 'Red' }, { id: 2, name: 'Black' }, { id: 3, name: 'White' }]}/>
 
 				<button type="submit" className="btn btn-primary mt-2">
 					Add Product
