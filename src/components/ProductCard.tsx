@@ -22,11 +22,11 @@ const ProductCard = (props: Props) => {
     }
 
   return (
-    <div className="card">
-			<img src={props.product.thumbnail} className="card-img-top" alt="..." />
+    <div className="card p-2 h-100">
+			<img src={props.product.thumbnail} className="card-img-top" style={{objectFit:"cover", height:"200px"}} alt="..."/>
 			<div className="card-body">
 				<h5 className="card-title">{props.product.title}</h5>
-				<p className="card-text">{props.product.description}</p>
+				<p className="card-text">{props.product.description.substring(0, 70)}{props.product.description.length > 70 ? "..." : ""}</p>
                 <p>{props.product.price}</p>
 				<Link
 					to={"/product-detail/" + props.product.id}

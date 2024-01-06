@@ -25,7 +25,7 @@ export const Homepage = (props: Props) => {
 	};
 
     return (
-		<div className="container">
+		<div className="container mt-3">
 			<div className="row">
 				{products.map(product => (
 					<div className="col-lg-3 col-md-6 col-12 mb-5">
