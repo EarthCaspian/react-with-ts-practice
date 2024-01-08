@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.css"
 import { Homepage } from './pages/Homepage';
 import ProductDetail from './pages/ProductDetail';
