@@ -6,8 +6,8 @@ import { configureStore } from "@reduxjs/toolkit";
 //   return createStore(rootReducer);
 // };
 
-export default configureStore({
-  reducer: {
-    createStore: cartSliceReducer,
-  },
-});
+// export default configureStore({
+//   reducer: {
+//     createStore: cartSliceReducer,
+//   },
+// });
