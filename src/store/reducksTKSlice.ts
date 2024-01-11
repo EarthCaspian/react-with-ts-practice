@@ -2,30 +2,58 @@
 import { ProductModel } from './../models/responses/ProductModel';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-interface CartState {
-    cartItems: ProductModel[];
+interface CartItem {
+    product: ProductModel;
+    quantity:number;
 }
 
-const initialCartState: CartState = {
-    cartItems: [],
+interface CartState {
+    cartItems: CartItem[]
 }
+
+// const initialCartState = {
+//     cartItems:[]
+// }
 
 export const cartSlice = createSlice({
     name:'cart',
-    initialState:initialCartState,
+    initialState: {
+		cartItems: JSON.parse(localStorage.getItem("cart") || "[]") || [],
+	},
     reducers: {
         addToCart: (state: CartState, action: PayloadAction<ProductModel>) => {
-            return { ...state, cartItems: [...state.cartItems, action.payload] };
+            const itemIndex = state.cartItems.findIndex(item => item.product.id === action.payload.id);
+            if (itemIndex > -1) {
+                // If the item already exists in the cart, increment the quantity
+                state.cartItems[itemIndex].quantity += 1;
+            } else {
+                // If the item is not in the cart, add it with a quantity of 1
+                state.cartItems.push({ product: action.payload, quantity: 1 });
+            }
+            localStorage.setItem("cart", JSON.stringify(state.cartItems));
         },
         removeFromCart : (state: CartState, action: PayloadAction<ProductModel>) => {
-            return {cartItems: state.cartItems.filter(
-                (item: ProductModel) => item.id !== action.payload.id)}
+            const itemIndex = state.cartItems.findIndex(item => item.product.id === action.payload.id);
+            if (itemIndex > -1) {
+                if (state.cartItems[itemIndex].quantity > 1) {
+                    // If there's more than one of this item in the cart, decrement the quantity
+                    state.cartItems[itemIndex].quantity -= 1;
+                } else {
+                    // If there's only one of this item in the cart, remove it
+                    state.cartItems.splice(itemIndex, 1);
+                }
+                localStorage.setItem("cart", JSON.stringify(state.cartItems));
+            }
         },
-        clearCart: (state: CartState) =>  {return {...state, cartItems:[]}}
+        clearCart: (state: CartState) =>  {
+            state.cartItems = [];
+            localStorage.setItem("cart", JSON.stringify(state.cartItems));
+            return state;
+        }
     },
 });
 
 
 export const {addToCart,removeFromCart,clearCart} = cartSlice.actions;
 
-export default cartSlice.reducer;
+export const cartReducer = cartSlice.reducer;

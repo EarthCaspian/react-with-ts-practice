@@ -61,6 +61,18 @@ const Navbar = (props: Props) => {
 								</Link>
 							</li>
 						)}
+            <li className="nav-item">
+							<button
+								type="button"
+								className="btn btn-primary position-relative"
+							>
+								Cart
+								<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  {cartState.cartItems ? cartState.cartItems.length : 0}
+									<span className="visually-hidden">unread messages</span>
+								</span>
+							</button>
+						</li>
           </ul>
           <form className="d-flex" role="search">
             <input
