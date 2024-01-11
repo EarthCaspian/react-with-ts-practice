@@ -16,7 +16,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <AuthProvider> 
     {/* // Context */}
-    <Provider store={store}>
+    <Provider store={store()}>
        {/* // Redux */}
       <BrowserRouter>
         <App />
