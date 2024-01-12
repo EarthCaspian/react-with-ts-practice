@@ -1,17 +1,24 @@
 import React, { useContext } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
+import { clearCart } from "../../store/reducksTKSlice";
+
 
 type Props = {};
 
 const Navbar = (props: Props) => {
 
   const cartState = useSelector((state:any) => state.cart);
-  console.log(cartState);
+  // console.log(cartState);
 
   const authContext: any = useContext(AuthContext);
-  console.log(authContext);
+  // console.log(authContext);
+
+  const dispatch = useDispatch()
+  const handleClear = () => {
+    dispatch(clearCart())
+  }
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
@@ -61,18 +68,26 @@ const Navbar = (props: Props) => {
 								</Link>
 							</li>
 						)}
-            <li className="nav-item">
-							<button
-								type="button"
-								className="btn btn-primary position-relative"
-							>
-								Cart
-								<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            <li className="btn-group">
+            <button type="button" className="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              Cart
+              <span className="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-danger">
                   {cartState.cartItems ? cartState.cartItems.length : 0}
 									<span className="visually-hidden">unread messages</span>
 								</span>
-							</button>
-						</li>
+            </button>
+            <ul className="dropdown-menu">
+                {cartState.cartItems.map((item: any, index: number) => (
+                  <li key={index}>
+                    <Link className="dropdown-item" to={`/product-detail/${item.product.id}`}>
+                      {item.product.title}
+                    </Link>
+                  </li>
+                ))}
+                  <li><hr className="dropdown-divider"/></li>
+                  <li><button className="btn btn-success" onClick={handleClear}>Clear Cart</button></li>
+            </ul>
+          </li>
           </ul>
           <form className="d-flex" role="search">
             <input
